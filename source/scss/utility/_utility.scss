@@ -1,0 +1,100 @@
+@charset "utf-8";
+
+// ======================================================================
+//  utility
+// ----------------------------------------------------------------------
+//
+//  clearfixや強制マージンなどの便利クラスを記述します。
+//
+//  utilityに含まれるクラスは、接頭辞に"uti-"を付与します。
+//  (ex) .uti-btn, .uti-card, .uti-container
+//
+// ======================================================================
+
+
+/*
+#overview
+ユーティリティ
+*/
+
+/*
+#styleguide
+文字揃え
+
+内側のインラインレベル要素をそれぞれ、左寄せ、中央寄せ、右寄せに揃える
+
+```
+<p class="uti-tal">Lorem ipsum</p>
+<p class="uti-tac">Lorem ipsum</p>
+<p class="uti-tar">Lorem ipsum</p>
+```
+*/
+.uti-tal{ text-align: left   !important; }
+.uti-tac{ text-align: center !important; }
+.uti-tar{ text-align: right  !important; }
+
+
+/*
+#styleguide
+ブロック揃え
+
+ブロックレベル要素をそれぞれ、左寄せ、右寄せに揃える
+
+```
+<p class="uti-fl">Lorem ipsum</p>
+<p class="uti-fr">Lorem ipsum</p>
+```
+*/
+.uti-fl{ float: left  !important; }
+.uti-fr{ float: right !important; }
+
+
+/*
+#styleguide
+文字の太さ
+
+フォントの太さを変更する
+
+```
+<p class="uti-fwn">Lorem ipsum</p>
+<p class="uti-fwb">Lorem ipsum</p>
+```
+*/
+.uti-fwn{ font-weight: normal !important; }
+.uti-fwb{ font-weight: bold   !important; }
+
+
+/*
+#styleguide
+クリアフィックス
+
+float解除の定番
+
+```
+<div class="uti-clearfix">
+  <p class="uti-fl">item01</p>
+  <p class="uti-fr">item02</p>
+</div>
+<div class="uti-cf">
+  <p class="uti-fl">item03</p>
+  <p class="uti-fr">item04</p>
+</div>
+```
+*/
+
+%clearfix{
+  &:before,
+  &:after{
+    content: " ";
+    display: table;
+  }
+
+  &:after{ clear: both; }
+
+  &{ *zoom: 1; }
+}
+
+.uti-clearfix,
+.uti-cf{
+  @extend %clearfix;
+}

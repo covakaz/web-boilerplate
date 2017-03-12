@@ -1,0 +1,28 @@
+{
+  "name": "web-boilerplate",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "gulp",
+    "release": "gulp release",
+    "setup": "npm install",
+    "watch": "gulp watch"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-changed": "^2.0.0",
+    "gulp-convert-newline": "0.0.3",
+    "gulp-ejs": "^3.0.0",
+    "gulp-frontnote": "^2.0.1",
+    "gulp-imagemin": "^3.1.1",
+    "gulp-pleeease": "^2.0.2",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.4.1",
+    "gulp-uglify": "^2.1.0",
+    "run-sequence": "^1.2.2"
+  }
+}

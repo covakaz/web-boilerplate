@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+// ======================================================================
+//  base
+// ----------------------------------------------------------------------
+//
+//  プロジェクトの基礎となる記述はここで行います。
+//
+// ======================================================================
+
+html{
+  background: #fff;
+  color: #000;
+  font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', Yu Gothic, YuGothic, '游ゴシック', 'メイリオ', Meiryo, 'Osaka', 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+img{ vertical-align: middle; }
+
+*{ box-sizing: border-box; }

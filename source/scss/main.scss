@@ -1,0 +1,24 @@
+@charset "utf-8";
+
+// ======================================================================
+//  main
+// ----------------------------------------------------------------------
+//
+//  scssファイルをひとつのcssにまとめて出力します。
+//  個々のファイル群についての説明は、
+//  それぞれのファイルに記述されています。
+//
+// ======================================================================
+
+@import "variable.scss";
+@import "mixin.scss";
+
+@import "foundation/foundation.scss";
+
+@import "layout/layout.scss";
+
+@import "module/module.scss";
+
+@import "page/page.scss";
+
+@import "utility/utility.scss";

@@ -1,0 +1,13 @@
+# npm
+node_modules/
+npm-debug.log
+
+# 出力用フォルダ
+public/
+
+# キャッシュフォルダ
+.sass-cache/
+.idea/
+
+# 下階層全てのフォルダ内で ".DS_Store" ファイルを無視
+*/.DS_Store
