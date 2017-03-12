@@ -15,20 +15,6 @@ var uglify         = require('gulp-uglify');
 var runSequence    = require('run-sequence');
 
 
-// オプション
-var browserSyncOpts = {
-  notify: false,
-  open: false,
-  port: 3000,
-  reloadOnRestart: true,
-  server: {
-    baseDir: ['public/']
-  },
-  ui: {
-    port: 3001
-  }
-};
-
 // デフォルト：publicフォルダを削除してビルド
 gulp.task('default', function (callback) {
   runSequence('clean', 'build', callback);
@@ -69,6 +55,25 @@ gulp.task('release', function (callback) {
   ], callback);
 });
 
+gulp.task('browser-sync', function() {
+  browserSync.init({
+    notify: false,
+    open: false,
+    port: 3000,
+    reloadOnRestart: true,
+    server: {
+      baseDir: ['public/']
+    },
+    ui: {
+      port: 3001
+    }
+  });
+});
+
+gulp.task('bs-reload', function () {
+    browserSync.reload();
+});
+
 // 下記に並ぶタスク以外でそのまま出力したいもの
 var copyTask = [
   'source/**/*.pdf',
@@ -83,7 +88,7 @@ gulp.task('copy', function() {
   return gulp.src(copyTask,{base: 'source/'})
   .pipe(plumber())
   .pipe(changed('public/'))
-  .pipe(gulp.dest('public/'));
+  .pipe(gulp.dest('public/'))
 });
 
 // ejsコンパイル
@@ -96,7 +101,7 @@ gulp.task('ejs', function() {
     encoding: 'utf8'
   }))
   .pipe(rename({extname: '.html'}))
-  .pipe(gulp.dest('public/'));
+  .pipe(gulp.dest('public/'))
 });
 
 // リリース用sass（watchしない）
@@ -110,12 +115,12 @@ gulp.task('sass', function() {
     autoprefixer: true,
     browsers: ['last 2 versions', 'ie >= 9','iOS >= 8', 'Android >= 4']
   }))
-  .pipe(gulp.dest('public/css/'));
+  .pipe(gulp.dest('public/css/'))
 });
 
 // 開発用sass（コード圧縮せず、ソースマップを生成する）
 gulp.task('sass-dev', function() {
-return gulp.src('source/scss/**/*.scss')
+  return gulp.src('source/scss/**/*.scss')
   .pipe(plumber())
   .pipe(frontnote({
     title: 'スタイルガイド',
@@ -132,7 +137,7 @@ return gulp.src('source/scss/**/*.scss')
     browsers: ['last 2 versions', 'ie >= 9', 'iOS >= 8', 'Android >= 4']
   }))
   .pipe(sourcemaps.write())
-  .pipe(gulp.dest('public/css/'));
+  .pipe(gulp.dest('public/css/'))
 });
 
 
@@ -155,11 +160,12 @@ gulp.task('imagemin', function() {
 });
 
 // 監視用のタスク
-gulp.task('watch', function() {
-  browserSync(browserSyncOpts);
-  gulp.watch(['source/**/*.ejs'], ['ejs',browserSync.reload]);
-  gulp.watch(['source/**/*.scss'], ['sass-dev',browserSync.reload]);
-  gulp.watch(['source/**/*.js'], ['uglify',browserSync.reload]);
-  gulp.watch(['source/**/*.+(jpg|jpeg|png|gif|svg)'], ['imagemin',browserSync.reload]);
-  gulp.watch(copyTask, ['copy',browserSync.reload]);
+gulp.task('watch', ['browser-sync'], function() {
+  gulp.watch(['source/**/*.ejs'], ['ejs']);
+  gulp.watch(['source/**/*.scss'], ['sass-dev']);
+  gulp.watch(['source/**/*.js'], ['uglify']);
+  gulp.watch(['source/**/*.+(jpg|jpeg|png|gif|svg)'], ['imagemin']);
+  gulp.watch(['public/**/*.html'], ['bs-reload']);
+  gulp.watch(['public/**/*.css'], ['bs-reload']);
+  gulp.watch(copyTask, ['copy']);
 });
