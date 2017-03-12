@@ -1,5 +1,3 @@
-<style>.fn-overview p { margin-bottom: 1em; } .fn-overview h1 { font-size: 32px;margin: .5em 0 1em; } .fn-overview h2{font-size: 24px; margin: 2em 0 1em;}</style>
-
 # 概要
 
 ## スタイルガイドとは

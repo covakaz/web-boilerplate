@@ -37,6 +37,7 @@ gulp.task('build', function (callback) {
   runSequence([
     'ejs',
     'sass-dev',
+    'styleguide',
     'uglify',
     'imagemin',
     'copy'
@@ -49,6 +50,7 @@ gulp.task('release', function (callback) {
     'clean',
     'ejs',
     'sass',
+    'styleguide',
     'uglify',
     'imagemin',
     'copy'
@@ -122,12 +124,6 @@ gulp.task('sass', function() {
 gulp.task('sass-dev', function() {
   return gulp.src('source/scss/**/*.scss')
   .pipe(plumber())
-  .pipe(frontnote({
-    title: 'スタイルガイド',
-    overview: 'styleguide.md',
-    out: 'styleguide/',
-    css: '../css/main.css'
-  }))
   .pipe(changed('public/css/'))
   .pipe(sourcemaps.init())
   .pipe(sass({outputStyle: 'expanded'}))
@@ -138,6 +134,26 @@ gulp.task('sass-dev', function() {
   }))
   .pipe(sourcemaps.write())
   .pipe(gulp.dest('public/css/'))
+});
+
+// スタイルガイド用css
+gulp.task('styleguide', function() {
+  return gulp.src('source/scss/**/*.scss')
+  .pipe(plumber())
+  .pipe(frontnote({
+    title: 'スタイルガイド',
+    overview: 'styleguide.md',
+    out: 'public/styleguide/',
+    css: ['css/main.css', 'css/styleguide.css']
+  }))
+  .pipe(changed('public/styleguide/css/'))
+  .pipe(sass({outputStyle: 'expanded'}))
+  .pipe(pleeease({
+    minifier: false,
+    autoprefixer: true,
+    browsers: ['last 2 versions', 'ie >= 9', 'iOS >= 8', 'Android >= 4']
+  }))
+  .pipe(gulp.dest('public/styleguide/css/'))
 });
 
 
@@ -162,7 +178,7 @@ gulp.task('imagemin', function() {
 // 監視用のタスク
 gulp.task('watch', ['browser-sync'], function() {
   gulp.watch(['source/**/*.ejs'], ['ejs']);
-  gulp.watch(['source/**/*.scss'], ['sass-dev']);
+  gulp.watch(['source/**/*.scss'], ['sass-dev', 'styleguide']);
   gulp.watch(['source/**/*.js'], ['uglify']);
   gulp.watch(['source/**/*.+(jpg|jpeg|png|gif|svg)'], ['imagemin']);
   gulp.watch(['public/**/*.html'], ['bs-reload']);
