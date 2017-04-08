@@ -1,5 +1,5 @@
 ## Version
-1.0.2
+1.1.0
 
 ## command
 
@@ -21,4 +21,4 @@ gulpパッケージのインストール（package.jsonに基づく）
 
 gulpパッケージの最新版をインストール
 
-    $ npm i -D gulp browser-sync del gulp-changed gulp-convert-newline gulp-ejs gulp-frontnote gulp-imagemin gulp-pleeease gulp-plumber gulp-rename gulp-sass gulp-sourcemaps gulp-uglify run-sequence
+    $ npm i -D gulp browser-sync del gulp-changed gulp-convert-newline gulp-ejs gulp-imagemin gulp-pleeease gulp-plumber gulp-rename gulp-sass gulp-sourcemaps gulp-uglify run-sequence

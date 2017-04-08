@@ -4,7 +4,6 @@ var del            = require('del');
 var changed        = require('gulp-changed');
 var convertNewline = require('gulp-convert-newline');
 var ejs            = require('gulp-ejs');
-var frontnote      = require('gulp-frontnote');
 var imagemin       = require('gulp-imagemin');
 var pleeease       = require('gulp-pleeease');
 var plumber        = require('gulp-plumber');
@@ -23,8 +22,7 @@ gulp.task('default', function (callback) {
 // 削除するタスク
 gulp.task('clean', function () {
   del.sync([
-    'public/',
-    'styleguide/'
+    'public/'
   ], {
     dot: true
   }).map(function (path) {
@@ -37,7 +35,6 @@ gulp.task('build', function (callback) {
   runSequence([
     'ejs',
     'sass-dev',
-    'styleguide',
     'uglify',
     'imagemin',
     'copy'
@@ -50,7 +47,6 @@ gulp.task('release', function (callback) {
     'clean',
     'ejs',
     'sass',
-    'styleguide',
     'uglify',
     'imagemin',
     'copy'
@@ -78,6 +74,7 @@ gulp.task('bs-reload', function () {
 
 // 下記に並ぶタスク以外でそのまま出力したいもの
 var copyTask = [
+  'source/**/*.ico',
   'source/**/*.pdf',
   'source/**/*.ttf',
   'source/**/*.otf',
@@ -136,26 +133,6 @@ gulp.task('sass-dev', function() {
   .pipe(gulp.dest('public/css/'))
 });
 
-// スタイルガイド用css
-gulp.task('styleguide', function() {
-  return gulp.src('source/scss/**/*.scss')
-  .pipe(plumber())
-  .pipe(frontnote({
-    title: 'スタイルガイド',
-    overview: 'styleguide.md',
-    out: 'public/styleguide/',
-    css: ['css/main.css', 'css/styleguide.css']
-  }))
-  .pipe(changed('public/styleguide/css/'))
-  .pipe(sass({outputStyle: 'expanded'}))
-  .pipe(pleeease({
-    minifier: false,
-    autoprefixer: true,
-    browsers: ['last 2 versions', 'ie >= 9', 'iOS >= 8', 'Android >= 4']
-  }))
-  .pipe(gulp.dest('public/styleguide/css/'))
-});
-
 
 // javascript圧縮
 gulp.task('uglify', function() {
@@ -178,7 +155,7 @@ gulp.task('imagemin', function() {
 // 監視用のタスク
 gulp.task('watch', ['browser-sync'], function() {
   gulp.watch(['source/**/*.ejs'], ['ejs']);
-  gulp.watch(['source/**/*.scss'], ['sass-dev', 'styleguide']);
+  gulp.watch(['source/**/*.scss'], ['sass-dev']);
   gulp.watch(['source/**/*.js'], ['uglify']);
   gulp.watch(['source/**/*.+(jpg|jpeg|png|gif|svg)'], ['imagemin']);
   gulp.watch(['public/**/*.html'], ['bs-reload']);
