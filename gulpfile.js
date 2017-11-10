@@ -56,7 +56,7 @@ gulp.task('release', function (callback) {
 gulp.task('browser-sync', function() {
   browserSync.init({
     notify: false,
-    open: false,
+    open: true,
     port: 3000,
     reloadOnRestart: true,
     server: {
