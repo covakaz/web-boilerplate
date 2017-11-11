@@ -8,8 +8,12 @@
 //
 // ======================================================================
 
+$site-width-s: 40rem;
+$site-width-m: 48rem;
+$site-width-l: 64rem;
+
 $breakpoints: (
-  s : "only screen and (min-width: 40rem)",
-  m : "only screen and (min-width: 48rem)",
-  l : "only screen and (min-width: 64rem)",
+  s : "only screen and (min-width: #{$site-width-s})",
+  m : "only screen and (min-width: #{$site-width-m})",
+  l : "only screen and (min-width: #{$site-width-l})",
 );
