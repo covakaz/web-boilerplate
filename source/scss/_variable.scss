@@ -8,3 +8,8 @@
 //
 // ======================================================================
 
+$breakpoints: (
+  s : "only screen and (min-width: 40rem)",
+  m : "only screen and (min-width: 48rem)",
+  l : "only screen and (min-width: 64rem)",
+);
